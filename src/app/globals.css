@@ -1,26 +1,75 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --navy: #061b36;
+  --navy-2: #0b2a4a;
+  --gold: #c99a2e;
+  --light-gold: #f8f2e5;
+  --soft-gray: #f6f8fb;
+  --text: #0f172a;
+  --muted: #64748b;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+html { scroll-behavior: smooth; }
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  color: var(--text);
+  background: #ffffff;
+  font-family: var(--font-noto-serif-tc), ui-serif, serif;
 }
+
+.font-serif-num {
+  font-family: var(--font-noto-serif-tc), ui-serif, serif;
+}
+
+@layer utilities {
+  .section-title { @apply text-3xl md:text-4xl font-bold tracking-tight text-slate-900; }
+  .section-subtitle { @apply mt-3 text-base md:text-lg text-slate-500 leading-8; }
+  .container-page { @apply mx-auto w-full max-w-7xl px-6 lg:px-8; }
+  .card-base { @apply rounded-2xl border border-slate-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg; }
+  .gold-text { color: var(--gold); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fadeInUp { animation: fadeInUp 0.7s ease both; }
+
+@keyframes countUp {
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1); }
+}
+.animate-countUp { animation: countUp 0.6s cubic-bezier(0.34,1.56,0.64,1) both; }
+
+@keyframes fadeInLeft {
+  from { opacity: 0; transform: translateX(-28px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes fadeInRight {
+  from { opacity: 0; transform: translateX(28px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.85); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulse-gold {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(201,154,46,0.4); }
+  50%       { box-shadow: 0 0 0 10px rgba(201,154,46,0); }
+}
+
+.animate-fadeInLeft  { animation: fadeInLeft  0.7s ease both; }
+.animate-fadeInRight { animation: fadeInRight 0.7s ease both; }
+.animate-scaleIn     { animation: scaleIn   0.6s cubic-bezier(0.34,1.56,0.64,1) both; }
+.animate-slideDown   { animation: slideDown 0.5s ease both; }
+.animate-pulse-gold  { animation: pulse-gold 2s ease-in-out infinite; }
+
+.delay-100 { animation-delay: 0.10s; }
+.delay-200 { animation-delay: 0.20s; }
+.delay-300 { animation-delay: 0.30s; }
+.delay-400 { animation-delay: 0.40s; }
+.delay-500 { animation-delay: 0.50s; }
