@@ -3,7 +3,6 @@ import Hero from "@/components/Hero";
 import Services from "@/components/Services";
 import WhyChooseUs from "@/components/WhyChooseUs";
 import LoanProcess from "@/components/LoanProcess";
-import TrustStats from "@/components/TrustStats";
 import CaseStudies from "@/components/CaseStudies";
 import Testimonials from "@/components/Testimonials";
 import Requirements from "@/components/Requirements";
@@ -20,7 +19,6 @@ export default function Home() {
       <Services />
       <WhyChooseUs />
       <LoanProcess />
-      <TrustStats />
       <CaseStudies />
       <Testimonials />
       <Requirements />

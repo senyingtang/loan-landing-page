@@ -24,7 +24,7 @@ const steps = [
 
 export default function LoanProcess() {
   return (
-    <section id="process" className="border-b border-slate-200 bg-[#F6F8FB] py-24">
+    <section id="process" className="border-b border-slate-200 bg-white py-24">
       <div className="container-page">
         <div className="grid items-center gap-0 lg:grid-cols-[1fr_1.5fr]">
 
