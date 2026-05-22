@@ -98,7 +98,7 @@ export const cases = [
   },
   {
     title: "汽車增貸 周轉成功",
-    text: "保留原車使用權，快速處理短期資金需求。",
+    text: "保留原車使用權，快速處理業主短期資金需求。",
     tag: "核貸金額 50 萬元",
     image: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=600&q=80",
   },
