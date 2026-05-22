@@ -211,14 +211,14 @@ export default function Services() {
         {/* 手機版：橫向 scroll tab */}
         <div className="mt-10 lg:hidden">
           {/* Tab 列 */}
-          <div className="flex gap-2 overflow-x-auto pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          <div className="grid grid-cols-3 gap-2">
             {services.map((s, i) => {
               const TabIcon = s.icon;
               return (
                 <button
                   key={s.title}
                   onClick={() => setActive(i)}
-                  className={`flex shrink-0 items-center gap-1.5 rounded-full border px-4 py-2 text-xs font-semibold transition-all duration-200 ${
+                  className={`flex w-full items-center justify-center gap-1.5 rounded-xl border px-2 py-2.5 text-xs font-semibold transition-all duration-200 ${
                     active === i
                       ? "border-[#061B36] bg-[#061B36] text-[#F6D58A]"
                       : "border-slate-200 bg-white text-slate-500 hover:border-[#C99A2E] hover:text-[#C99A2E]"

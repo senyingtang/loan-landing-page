@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="zh-Hant" className={notoSerifTC.variable}>
-      <body>
+      <body className="overflow-x-hidden">
         <ScrollProgress />
         <SmoothScroll>{children}</SmoothScroll>
       </body>
