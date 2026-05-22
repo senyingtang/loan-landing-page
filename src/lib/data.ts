@@ -61,8 +61,8 @@ export const services = [
 ];
 
 export const whyChooseUs = [
-  { icon: ShieldCheck, title: "合法立案", text: "流程透明，拒絕不明收費與高風險話術。" },
-  { icon: UserCheck, title: "專業顧問", text: "一對一評估條件，降低自行申請失敗率。" },
+  { icon: ShieldCheck, title: "合法立案", text: "流程透明，拒絕不明收費與話術。" },
+  { icon: UserCheck, title: "專業顧問", text: "一對一評估條件，降低申請失敗率。" },
   { icon: Zap, title: "快速核貸", text: "資料齊全後，最快 1 天提供初步方向。" },
   { icon: Landmark, title: "透明收費", text: "申辦前清楚說明，不隱藏額外費用。" },
   { icon: HeartHandshake, title: "隱私放心", text: "全程保密，不任意外流個人資料。" },
