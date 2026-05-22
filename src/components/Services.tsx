@@ -95,7 +95,7 @@ export default function Services() {
         </AnimateIn>
 
         <AnimateIn delay={0.15}>
-          <div className="mt-14 overflow-hidden rounded-2xl border border-slate-200 shadow-lg lg:grid lg:grid-cols-[280px_1fr]">
+          <div className="mt-14 hidden overflow-hidden rounded-2xl border border-slate-200 shadow-lg lg:grid lg:grid-cols-[280px_1fr]">
 
             {/* 左側 Tab 列表 */}
             <div className="bg-[#061B36]">
@@ -207,6 +207,89 @@ export default function Services() {
 
           </div>
         </AnimateIn>
+
+        {/* 手機版：橫向 scroll tab */}
+        <div className="mt-10 lg:hidden">
+          {/* Tab 列 */}
+          <div className="flex gap-2 overflow-x-auto pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            {services.map((s, i) => {
+              const TabIcon = s.icon;
+              return (
+                <button
+                  key={s.title}
+                  onClick={() => setActive(i)}
+                  className={`flex shrink-0 items-center gap-1.5 rounded-full border px-4 py-2 text-xs font-semibold transition-all duration-200 ${
+                    active === i
+                      ? "border-[#061B36] bg-[#061B36] text-[#F6D58A]"
+                      : "border-slate-200 bg-white text-slate-500 hover:border-[#C99A2E] hover:text-[#C99A2E]"
+                  }`}
+                >
+                  <TabIcon size={13} />
+                  {s.title}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* 內容卡片 */}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={active}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.25 }}
+              className="mt-3 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm"
+            >
+              {/* 圖片區 */}
+              <div className="relative h-44 overflow-hidden">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={services[active].image}
+                  alt={services[active].title}
+                  className="h-full w-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#061B36]/75 to-transparent" />
+                <div className="absolute bottom-3 left-4">
+                  <p className="text-base font-black text-white">{services[active].title}</p>
+                  <p className="text-xs font-semibold text-[#F6D58A]">{services[active].sub}</p>
+                </div>
+              </div>
+
+              {/* 列表 */}
+              <div className="p-4">
+                <ul className="space-y-2.5">
+                  {services[active].points.map((pt) => (
+                    <li key={pt} className="flex items-start gap-2.5 text-sm text-slate-600">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#C99A2E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mt-0.5 shrink-0"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                      {pt}
+                    </li>
+                  ))}
+                </ul>
+                <a
+                  href="#contact"
+                  className="mt-4 flex items-center justify-center gap-2 rounded-xl bg-[#061B36] py-3 text-sm font-bold text-white transition hover:bg-[#0B2A4A]"
+                >
+                  立即諮詢
+                  <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                </a>
+              </div>
+
+              {/* 底部三欄 */}
+              <div className="flex divide-x divide-slate-200 border-t border-slate-200">
+                {features.map((f) => (
+                  <div key={f.title} className="flex flex-1 flex-col items-center py-2.5">
+                    {f.icon === "shield" && <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#C99A2E" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>}
+                    {f.icon === "clock" && <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#C99A2E" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>}
+                    {f.icon === "user" && <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#C99A2E" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>}
+                    <p className="mt-1 text-[10px] font-bold text-[#061B36]">{f.title}</p>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
       </div>
     </section>
   );
