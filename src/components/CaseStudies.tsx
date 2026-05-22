@@ -49,17 +49,18 @@ export default function CaseStudies() {
         </div>
 
         {/* 桌機版：三欄並排 + 3D tilt */}
-        <div className="mt-14 hidden gap-6 md:grid md:grid-cols-3">
+        <div className="mt-14 hidden gap-6 md:grid md:grid-cols-3 md:items-stretch">
           {cases.map((item, i) => (
             <motion.div
               key={item.title}
+              className="h-full"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
             >
               <TiltCard>
-                <article className="card-base overflow-hidden">
+                <article className="card-base flex h-full flex-col overflow-hidden">
                   <div className="relative h-52 w-full overflow-hidden">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
@@ -69,9 +70,10 @@ export default function CaseStudies() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#061B36]/60 to-transparent" />
                   </div>
-                  <div className="p-8">
+                  <div className="flex flex-1 flex-col p-8">
                     <h3 className="text-xl font-black text-[#061B36]">{item.title}</h3>
                     <p className="mt-4 leading-7 text-slate-500">{item.text}</p>
+                    <div className="flex-1" />
                     <div className="mt-6 rounded-full bg-[#F8F2E5] px-4 py-2 text-center text-sm font-bold text-[#9B6F11]">
                       {item.tag}
                     </div>

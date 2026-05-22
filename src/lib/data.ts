@@ -88,7 +88,7 @@ export const cases = [
     title: "小資上班族 信貸成功",
     text: "原本卡循壓力過大，透過信用貸款整合月付支出。",
     tag: "核貸金額 30 萬元",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80",
+    image: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=600&q=80",
   },
   {
     title: "房屋二胎 增貸成功",
