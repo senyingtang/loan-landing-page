@@ -5,11 +5,40 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import AnimateIn from "@/components/AnimateIn";
 
+function StarRow() {
+  return (
+    <div className="mb-4 flex gap-1 text-[#C99A2E]">
+      {Array.from({ length: 5 }).map((_, j) => (
+        <Star key={j} size={16} fill="currentColor" />
+      ))}
+    </div>
+  );
+}
+
+function TestimonialCard({ item }: { item: typeof testimonials[0] }) {
+  return (
+    <div className="w-72 shrink-0 rounded-2xl border border-slate-200 bg-white p-7 shadow-sm">
+      <StarRow />
+      <p className="leading-7 text-slate-600">「{item.text}」</p>
+      <div className="mt-6 border-t border-slate-200 pt-5">
+        <p className="font-black text-[#061B36]">{item.name}</p>
+        <p className="mt-1 text-sm text-slate-500">{item.role}</p>
+        <p className="mt-3 inline-flex rounded-full bg-[#F8F2E5] px-3 py-1 text-xs font-bold text-[#9B6F11]">
+          使用服務：{item.service}
+        </p>
+      </div>
+    </div>
+  );
+}
+
 export default function Testimonials() {
   const [current, setCurrent] = useState(0);
 
   const prev = () => setCurrent((c) => (c - 1 + testimonials.length) % testimonials.length);
   const next = () => setCurrent((c) => (c + 1) % testimonials.length);
+
+  // Doubled for seamless loop
+  const doubled = [...testimonials, ...testimonials];
 
   return (
     <section id="testimonials" className="bg-white py-24">
@@ -21,27 +50,13 @@ export default function Testimonials() {
           </div>
         </AnimateIn>
 
-        {/* 桌機版：四欄並排 */}
-        <div className="mt-14 hidden gap-6 md:grid md:grid-cols-2 lg:grid-cols-4">
-          {testimonials.map((item, i) => (
-            <AnimateIn key={item.name} delay={i * 0.1} direction="up">
-              <div className="rounded-2xl border border-slate-200 bg-white p-7 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-md">
-                <div className="mb-4 flex gap-1 text-[#C99A2E]">
-                  {Array.from({ length: 5 }).map((_, j) => (
-                    <Star key={j} size={16} fill="currentColor" />
-                  ))}
-                </div>
-                <p className="min-h-[112px] leading-7 text-slate-600">「{item.text}」</p>
-                <div className="mt-6 border-t border-slate-200 pt-5">
-                  <p className="font-black text-[#061B36]">{item.name}</p>
-                  <p className="mt-1 text-sm text-slate-500">{item.role}</p>
-                  <p className="mt-3 inline-flex rounded-full bg-[#F8F2E5] px-3 py-1 text-xs font-bold text-[#9B6F11]">
-                    使用服務：{item.service}
-                  </p>
-                </div>
-              </div>
-            </AnimateIn>
-          ))}
+        {/* 桌機版：跑馬燈 */}
+        <div className="mt-14 hidden overflow-hidden md:block">
+          <div className="marquee-track flex gap-6">
+            {doubled.map((item, i) => (
+              <TestimonialCard key={i} item={item} />
+            ))}
+          </div>
         </div>
 
         {/* 手機版：單張切換 */}
@@ -56,11 +71,7 @@ export default function Testimonials() {
                 exit={{ opacity: 0, x: -60 }}
                 transition={{ duration: 0.35 }}
               >
-                <div className="mb-4 flex gap-1 text-[#C99A2E]">
-                  {Array.from({ length: 5 }).map((_, j) => (
-                    <Star key={j} size={16} fill="currentColor" />
-                  ))}
-                </div>
+                <StarRow />
                 <p className="leading-7 text-slate-600">「{testimonials[current].text}」</p>
                 <div className="mt-6 border-t border-slate-200 pt-5">
                   <p className="font-black text-[#061B36]">{testimonials[current].name}</p>

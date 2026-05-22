@@ -10,7 +10,7 @@
   --muted: #64748b;
 }
 
-html { scroll-behavior: smooth; }
+html { scroll-behavior: auto; }
 body {
   color: var(--text);
   background: #ffffff;
@@ -73,3 +73,36 @@ body {
 .delay-300 { animation-delay: 0.30s; }
 .delay-400 { animation-delay: 0.40s; }
 .delay-500 { animation-delay: 0.50s; }
+
+/* ── Scroll progress bar (CSS scroll-driven animation) ── */
+@keyframes scroll-progress {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+.scroll-progress-bar {
+  animation: scroll-progress linear;
+  animation-timeline: scroll();
+}
+
+/* ── Hero "3" number zoom on scroll-into-view ── */
+@keyframes hero-num-zoom {
+  from { opacity: 0; transform: scale(0.6) translateY(20px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+.hero-num {
+  animation: hero-num-zoom linear both;
+  animation-timeline: view();
+  animation-range: entry 0% cover 35%;
+}
+
+/* ── Testimonials marquee ── */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.marquee-track {
+  animation: marquee 32s linear infinite;
+}
+.marquee-track:hover {
+  animation-play-state: paused;
+}

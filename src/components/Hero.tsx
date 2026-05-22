@@ -1,15 +1,46 @@
 "use client";
+import { useEffect, useRef, useState } from "react";
 import { heroFeatures } from "@/lib/data";
 import { PhoneCall, MessageCircle } from "lucide-react";
-import { useState } from "react";
 
 export default function Hero() {
   const [submitted, setSubmitted] = useState(false);
+  const bgRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    let ctx: { revert: () => void } | null = null;
+
+    async function initGsap() {
+      const { gsap } = await import("gsap");
+      const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+      gsap.registerPlugin(ScrollTrigger);
+
+      ctx = gsap.context(() => {
+        if (bgRef.current && sectionRef.current) {
+          gsap.to(bgRef.current, {
+            yPercent: 30,
+            ease: "none",
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: "top top",
+              end: "bottom top",
+              scrub: true,
+            },
+          });
+        }
+      });
+    }
+
+    initGsap();
+    return () => { ctx?.revert(); };
+  }, []);
 
   return (
-    <section id="home" className="relative overflow-hidden pt-20">
+    <section ref={sectionRef} id="home" className="relative overflow-hidden pt-20">
       <div className="absolute inset-0 bg-[#061B36]" />
       <div
+        ref={bgRef}
         className="absolute inset-0 bg-cover bg-center opacity-30"
         style={{ backgroundImage: "url('https://images.unsplash.com/photo-1560472355-536de3962603?auto=format&fit=crop&w=1800&q=80')" }}
       />

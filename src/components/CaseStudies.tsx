@@ -1,8 +1,38 @@
 "use client";
 import { cases } from "@/lib/data";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+
+function TiltCard({ children }: { children: React.ReactNode }) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  function onMove(e: React.MouseEvent<HTMLDivElement>) {
+    const el = ref.current;
+    if (!el) return;
+    const { left, top, width, height } = el.getBoundingClientRect();
+    const x = (e.clientX - left) / width - 0.5;
+    const y = (e.clientY - top) / height - 0.5;
+    el.style.transform = `perspective(900px) rotateY(${x * 12}deg) rotateX(${-y * 12}deg) scale3d(1.025,1.025,1.025)`;
+  }
+
+  function onLeave() {
+    const el = ref.current;
+    if (!el) return;
+    el.style.transform = "perspective(900px) rotateY(0deg) rotateX(0deg) scale3d(1,1,1)";
+  }
+
+  return (
+    <div
+      ref={ref}
+      onMouseMove={onMove}
+      onMouseLeave={onLeave}
+      style={{ transition: "transform 0.15s ease", willChange: "transform" }}
+    >
+      {children}
+    </div>
+  );
+}
 
 export default function CaseStudies() {
   const [current, setCurrent] = useState(0);
@@ -18,34 +48,37 @@ export default function CaseStudies() {
           <p className="section-subtitle">真實案例分享，見證安心又有效率的專業協助。</p>
         </div>
 
-        {/* 桌機版：三欄並排 */}
+        {/* 桌機版：三欄並排 + 3D tilt */}
         <div className="mt-14 hidden gap-6 md:grid md:grid-cols-3">
           {cases.map((item, i) => (
-            <motion.article
+            <motion.div
               key={item.title}
-              className="card-base overflow-hidden"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
             >
-              <div className="relative h-52 w-full overflow-hidden">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#061B36]/60 to-transparent" />
-              </div>
-              <div className="p-8">
-                <h3 className="text-xl font-black text-[#061B36]">{item.title}</h3>
-                <p className="mt-4 leading-7 text-slate-500">{item.text}</p>
-                <div className="mt-6 rounded-full bg-[#F8F2E5] px-4 py-2 text-center text-sm font-bold text-[#9B6F11]">
-                  {item.tag}
-                </div>
-              </div>
-            </motion.article>
+              <TiltCard>
+                <article className="card-base overflow-hidden">
+                  <div className="relative h-52 w-full overflow-hidden">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#061B36]/60 to-transparent" />
+                  </div>
+                  <div className="p-8">
+                    <h3 className="text-xl font-black text-[#061B36]">{item.title}</h3>
+                    <p className="mt-4 leading-7 text-slate-500">{item.text}</p>
+                    <div className="mt-6 rounded-full bg-[#F8F2E5] px-4 py-2 text-center text-sm font-bold text-[#9B6F11]">
+                      {item.tag}
+                    </div>
+                  </div>
+                </article>
+              </TiltCard>
+            </motion.div>
           ))}
         </div>
 

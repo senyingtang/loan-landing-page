@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Noto_Serif_TC } from "next/font/google";
 import "./globals.css";
+import SmoothScroll from "@/components/SmoothScroll";
+import ScrollProgress from "@/components/ScrollProgress";
 
 const notoSerifTC = Noto_Serif_TC({
   subsets: ["latin"],
@@ -17,7 +19,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="zh-Hant" className={notoSerifTC.variable}>
-      <body>{children}</body>
+      <body>
+        <ScrollProgress />
+        <SmoothScroll>{children}</SmoothScroll>
+      </body>
     </html>
   );
 }
